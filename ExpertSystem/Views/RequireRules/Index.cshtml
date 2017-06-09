@@ -1,0 +1,33 @@
+﻿@model IEnumerable<ExpertSystem.Models.RequireRule>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Lista uprawnień</h2>
+
+<p>
+    @Html.ActionLink("Dodaj", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Nazwa
+        </th>
+        <th>
+            Opis
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+    </tr>
+}
+
+</table>

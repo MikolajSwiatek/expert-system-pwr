@@ -1,0 +1,100 @@
+﻿@model ExpertSystem.ViewModels.ProductDetailsViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Informacje o produkcie</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Nazwa
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product.Name)
+        </dd>
+
+        <dt>
+            Jednostka miary
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product.CapacityUnit)
+        </dd>
+
+        <dt>
+            Typ
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product.Type)
+        </dd>
+
+        <h2>Posiadane uprawnienia</h2>
+
+        <table class="table">
+            <tr>
+                <th>
+                    Nazwa
+                </th>
+                <th>
+                    Opis
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model.Product.Rules)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Rule.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Rule.Description)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Usuń", "DeleteRule", new { id = item.ProductRuleID })
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+        <h2>Uprawnienia do dodania</h2>
+
+        <table class="table">
+            <tr>
+                <th>
+                    Nazwa
+                </th>
+                <th>
+                    Opis
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model.Rules)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Dodaj", "AddRule", new { rulesId = item.RequireRuleID, productId = Model.Product.ProductID })
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Wróć na listę", "Index")
+</p>

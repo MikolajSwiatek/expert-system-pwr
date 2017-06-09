@@ -1,0 +1,44 @@
+﻿@model IEnumerable<ExpertSystem.Models.Product>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Lista produktów</h2>
+
+<p>
+    @Html.ActionLink("Dodaj", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Nazwa
+        </th>
+        <th>
+            Jednostka miary
+        </th>
+        <th>
+            Typ produktu
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CapacityUnit)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Type)
+        </td>
+        <td>
+            @Html.ActionLink("Edytuj", "Edit", new { id=item.ProductID }) |
+            @Html.ActionLink("Informacje", "Details", new { id=item.ProductID })
+        </td>
+    </tr>
+}
+
+</table>

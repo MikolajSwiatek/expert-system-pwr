@@ -1,0 +1,62 @@
+﻿@model IEnumerable<ExpertSystem.Models.Order>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Lista zamówień</h2>
+
+<p>
+    @Html.ActionLink("Dodaj", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Nazwa produktu
+        </th>
+        <th>
+            Nazwa pojazdu
+        </th>
+        <th>
+            Nazwa magazynu
+        </th>
+        <th>
+            Ilość
+        </th>
+        <th>
+            Termin realizacji
+        </th>
+        <th>
+            Status zamówienia
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Product.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Truck.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Warehouse.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Capacity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @Html.ActionLink("Edytuj", "Edit", new { id=item.OrderID }) |
+            @Html.ActionLink("Detale", "Details", new { id=item.OrderID })
+        </td>
+    </tr>
+}
+
+</table>

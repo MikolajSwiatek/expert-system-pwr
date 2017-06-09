@@ -1,0 +1,68 @@
+﻿@model IEnumerable<ExpertSystem.Models.Truck>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Lista pojazdów</h2>
+
+<p>
+    @Html.ActionLink("Dodaj", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Lokalizacja
+        </th>
+        <th>
+            Nazwa
+        </th>
+        <th>
+            Pojemność
+        </th>
+        <th>
+            Prędkość
+        </th>
+        <th>
+            Miara jednostki
+        </th>
+        <th>
+            Typ samochodu
+        </th>
+        <th>
+            Status samochodu
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Location.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Capacity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Speed)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CapacityUnit)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Type)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @Html.ActionLink("Edytuj", "Edit", new { id=item.TruckID }) |
+            @Html.ActionLink("Informacje", "Details", new { id=item.TruckID })
+        </td>
+    </tr>
+}
+
+</table>

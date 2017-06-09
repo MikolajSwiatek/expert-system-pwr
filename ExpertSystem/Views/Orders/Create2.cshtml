@@ -1,0 +1,139 @@
+﻿@model ExpertSystem.ViewModels.OrderViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Dodawanie nowego zamówienia</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Order.WarehouseID, "Magazyn", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("WarehouseID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Order.WarehouseID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Order.ProductID, "Produkt", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("ProductID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Order.ProductID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Order.Capacity, "Ilość", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Order.Capacity, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Order.Capacity, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Order.DateTime, "Termin realizacji", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Order.DateTime, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Order.DateTime, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Order.Status, "Status", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EnumDropDownListFor(model => model.Order.Status, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Order.Status, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @if (Model.Trucks.Count() > 0)
+        {
+
+        <h2>Sugerowane pojazdy:</h2>
+
+        <table class="table">
+            <tr>
+                <th>
+                    Lokalizacja
+                </th>
+                <th>
+                    Nazwa
+                </th>
+                <th>
+                    Pojemność
+                </th>
+                <th>
+                    Prędkość
+                </th>
+                <th>
+                    Miara jednostki
+                </th>
+                <th>
+                    Typ samochodu
+                </th>
+                <th>
+                    Status samochodu
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model.Trucks)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Location.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Capacity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Speed)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CapacityUnit)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Type)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Status)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Wybierz", "CreateFinish", new
+                   {
+                       WarehouseID = Model.Order.WarehouseID,
+                       ProductID = Model.Order.ProductID,
+                       TruckID = item.TruckID,
+                       Capacity = Model.Order.Capacity,
+                       DateTime = Model.Order.DateTime,
+                       Status = Model.Order.Status
+                   })
+                    </td>
+                </tr>
+            }
+            </table>
+        }
+        else
+        {
+            <p>Brak pojazdów do zrealizowania zamówienia!</p>
+        }
+</div>
+}
+
+<div>
+    @Html.ActionLink("Wróć na listę", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
