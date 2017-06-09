@@ -6,7 +6,7 @@ namespace ExpertSystem
 {
     public class ESContext : DbContext
     {
-        public ESContext() : base("DBContext") { }
+        public ESContext() : base("SQLAzureConnection") { }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
